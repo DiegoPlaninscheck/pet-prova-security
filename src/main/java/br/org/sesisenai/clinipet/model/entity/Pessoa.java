@@ -1,10 +1,12 @@
 package br.org.sesisenai.clinipet.model.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,5 +27,9 @@ public abstract class Pessoa {
     private String senha;
 
     private String telefone;
+
+    public void setSenha(String senha){
+        this.senha = new BCryptPasswordEncoder().encode(senha);
+    }
 }
 

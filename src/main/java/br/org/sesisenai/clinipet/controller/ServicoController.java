@@ -22,6 +22,7 @@ public class ServicoController implements InterfaceController<Long, ServicoDTO>{
     }
     @Override
     public ResponseEntity<?> buscarPorId(Long id) {
+        System.out.println(id);
         return ResponseEntity.ok(servicoService.buscarPorId(id));
     }
     @Override
