@@ -9,7 +9,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="clinipet" />
         <module name="pet" />
-        <module name="pet-prova-security" />
       </profile>
     </annotationProcessing>
   </component>
