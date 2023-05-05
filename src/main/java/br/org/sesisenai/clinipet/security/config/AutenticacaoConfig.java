@@ -1,8 +1,7 @@
 package br.org.sesisenai.clinipet.security.config;
 
-import br.org.sesisenai.clinipet.security.filtro.AutenticacaoFiltro;
+import br.org.sesisenai.clinipet.security.filter.AutenticacaoFiltro;
 import br.org.sesisenai.clinipet.security.service.JpaService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +12,6 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -36,7 +34,8 @@ public class AutenticacaoConfig {
 
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests().requestMatchers("/login", "/login/auth", "/logout").permitAll()
+        System.out.println("httpSecurity: " + httpSecurity);
+        httpSecurity.authorizeRequests().requestMatchers("/login/**", "/login/auth/**", "/logout/**").permitAll()
 
                 //Atendente
                 .requestMatchers(HttpMethod.GET, "/animal", "/cliente",

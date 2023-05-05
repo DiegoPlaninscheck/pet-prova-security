@@ -17,43 +17,72 @@ import java.util.List;
 @NoArgsConstructor
 public class PessoaJpa implements UserDetails {
 
+//    private Pessoa pessoa;
+//
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+//        grantedAuthorities.add(new SimpleGrantedAuthority(this.getPessoa().getClass().getSimpleName()));
+//
+//        return grantedAuthorities;
+//    }
+//
+//    @Override
+//    public String getPassword() {
+//        return pessoa.getSenha();
+//    }
+//
+//    @Override
+//    public String getUsername() {
+//        return pessoa.getEmail();
+//    }
+//
+//    @Override
+//    public boolean isAccountNonExpired() {
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean isAccountNonLocked() {
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean isCredentialsNonExpired() {
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean isEnabled() {
+//        return true;
+//    }
+
     private Pessoa pessoa;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority(this.getPessoa().getClass().getSimpleName()));
+    private List<Perfil> authorities;
 
-        return grantedAuthorities;
+    private boolean accountNonExpired;
+
+    private boolean accountNonLocked;
+
+    private boolean credentialsNonExpired;
+
+    private boolean enabled;
+
+    private String password;
+
+    private String username;
+
+    public PessoaJpa(Pessoa pessoa){
+        this.pessoa = pessoa;
+        this.accountNonExpired = true;
+        this.accountNonLocked = true;
+        this.credentialsNonExpired = true;
+        this.enabled = true;
+        this.password = pessoa.getSenha();
+        this.username = pessoa.getEmail();
+        this.authorities = new ArrayList<>();
+        this.authorities.add(Perfil.perfilOf(pessoa.getClass().getSimpleName()));
     }
 
-    @Override
-    public String getPassword() {
-        return pessoa.getSenha();
-    }
-
-    @Override
-    public String getUsername() {
-        return pessoa.getEmail();
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }

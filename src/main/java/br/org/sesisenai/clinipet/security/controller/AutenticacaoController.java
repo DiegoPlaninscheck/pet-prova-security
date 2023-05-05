@@ -32,18 +32,25 @@ public class AutenticacaoController {
         try {
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(pessoaDTO.getEmail(), pessoaDTO.getSenha());
 
+            System.out.println("authenticationToken: " + authenticationToken);
+
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
+
+            System.out.println("authentication.isAuthenticated(): " + authentication.isAuthenticated());
 
             if (authentication.isAuthenticated()) {
                 PessoaJpa user = (PessoaJpa) authentication.getPrincipal();
+                System.out.println("Pessoa Jpa: " + user.toString());
 
                 Cookie jwtCookie = cookieUtils.gerarTokenCookie(user);
-                System.out.println(jwtCookie);
+                System.out.println("token cookie: " + jwtCookie);
                 response.addCookie(jwtCookie);
 
                 Cookie userCookie = cookieUtils.gerarUserCookie(user);
-                System.out.println(userCookie);
+                System.out.println("user cookie: " + userCookie);
                 response.addCookie(userCookie);
+
+                System.out.println("retorno: " + ResponseEntity.ok().build());
 
                 return ResponseEntity.ok().build();
             }

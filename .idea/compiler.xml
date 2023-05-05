@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="clinipet" />
         <module name="pet" />
+        <module name="pet-prova-security" />
       </profile>
     </annotationProcessing>
   </component>
@@ -16,6 +17,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="clinipet" options="-parameters" />
       <module name="pet" options="-parameters" />
+      <module name="pet-prova-security" options="-parameters" />
     </option>
   </component>
 </project>

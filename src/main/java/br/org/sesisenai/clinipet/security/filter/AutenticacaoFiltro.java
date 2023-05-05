@@ -1,15 +1,12 @@
-package br.org.sesisenai.clinipet.security.filtro;
+package br.org.sesisenai.clinipet.security.filter;
 
-import br.org.sesisenai.clinipet.security.model.entity.PessoaJpa;
 import br.org.sesisenai.clinipet.security.utils.CookieUtils;
 import br.org.sesisenai.clinipet.security.utils.JwtUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -24,7 +21,7 @@ public class AutenticacaoFiltro extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             String token = cookieUtils.getTokenCookie(request);
-//            System.out.println(token);
+            System.out.println("token: " + token);
             jwtUtils.validarToken(token);
 
 //            PessoaJpa pessoa = cookieUtils.getUserCookie(request);
