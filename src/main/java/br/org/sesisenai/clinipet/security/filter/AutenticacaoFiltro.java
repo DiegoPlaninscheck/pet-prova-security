@@ -35,7 +35,7 @@ public class AutenticacaoFiltro extends OncePerRequestFilter {
             if(valido){
                 UserDetails pessoa = jpaService.loadUserByUsername(jwtUtils.getPessoa(token));
 
-                System.out.println(pessoa);
+                System.out.println("pessoa da JpaService: " + pessoa.toString());
 
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                         new UsernamePasswordAuthenticationToken(pessoa.getUsername(), null, pessoa.getAuthorities());

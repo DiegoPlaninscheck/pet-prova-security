@@ -19,10 +19,12 @@ public class JpaService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("Username loadUserByUsername: " + username);
 
         Optional<Pessoa> pessoa = pessoaRepository.findPessoaByEmail(username);
 
         if(pessoa.isPresent()){
+            System.out.println("Pessoa is present");
             return new PessoaJpa(pessoa.get());
         }
 
