@@ -11,19 +11,22 @@ public class JwtUtils {
 
     public String gerarToken(PessoaJpa pessoaJpa) {
         return Jwts.builder().setIssuer("CliniPet")
-                .setSubject(pessoaJpa.getPessoa().getId().toString())
+                .setSubject(pessoaJpa.getUsername())
                 .setIssuedAt(new Date()).setExpiration(new Date(new Date().getTime() + 1800000))
                 .signWith(SignatureAlgorithm.HS256, senhaForte).compact();
     }
 
-    public void validarToken(String token) {
+    public Boolean validarToken(String token) {
         try {
             Jwts.parser().setSigningKey(senhaForte).parseClaimsJws(token);
             System.out.println("Passou");
+            return true;
         } catch (Exception e) {
             throw new RuntimeException();
         }
     }
 
-
+    public String getPessoa(String token){
+        return Jwts.parser().setSigningKey(senhaForte).parseClaimsJws(token).getBody().getSubject();
+    }
 }

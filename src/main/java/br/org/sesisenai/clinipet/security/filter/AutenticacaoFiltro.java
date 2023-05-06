@@ -1,5 +1,6 @@
 package br.org.sesisenai.clinipet.security.filter;
 
+import br.org.sesisenai.clinipet.security.service.JpaService;
 import br.org.sesisenai.clinipet.security.utils.CookieUtils;
 import br.org.sesisenai.clinipet.security.utils.JwtUtils;
 import jakarta.servlet.FilterChain;
@@ -7,6 +8,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -14,16 +18,27 @@ import java.io.IOException;
 @AllArgsConstructor
 public class AutenticacaoFiltro extends OncePerRequestFilter {
 
-    private final JwtUtils jwtUtils = new JwtUtils();
-    private final CookieUtils cookieUtils = new CookieUtils();
+    private JwtUtils jwtUtils;
+
+    private CookieUtils cookieUtils;
+
+    private JpaService jpaService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             String token = cookieUtils.getTokenCookie(request);
             System.out.println("token: " + token);
-            jwtUtils.validarToken(token);
+            Boolean valido = jwtUtils.validarToken(token);
 
+            if(valido){
+                UserDetails pessoa = jpaService.loadUserByUsername(jwtUtils.getPessoa(token));
+
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                        new UsernamePasswordAuthenticationToken(pessoa.getUsername(), null, pessoa.getAuthorities());
+
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            }
 //            PessoaJpa pessoa = cookieUtils.getUserCookie(request);
 
 //            System.out.println(pessoa);

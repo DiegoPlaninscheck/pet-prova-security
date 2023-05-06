@@ -2,6 +2,8 @@ package br.org.sesisenai.clinipet.security.config;
 
 import br.org.sesisenai.clinipet.security.filter.AutenticacaoFiltro;
 import br.org.sesisenai.clinipet.security.service.JpaService;
+import br.org.sesisenai.clinipet.security.utils.CookieUtils;
+import br.org.sesisenai.clinipet.security.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -110,7 +112,7 @@ public class AutenticacaoConfig {
 
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        httpSecurity.addFilterBefore(new AutenticacaoFiltro(), UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(new AutenticacaoFiltro(new JwtUtils(), new CookieUtils(), jpaService), UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
     }
