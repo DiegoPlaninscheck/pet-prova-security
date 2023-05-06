@@ -39,30 +39,8 @@ public class AutenticacaoConfig {
         System.out.println("httpSecurity: " + httpSecurity);
         httpSecurity.authorizeRequests().requestMatchers("/login/**", "/login/auth/**", "/logout/**").permitAll()
 
-//                //Atendente
-//                .requestMatchers(HttpMethod.GET, "/animal", "/cliente",
-//                        "/agenda", "/veterinario", "/atendente", "/prontuarios", "/servico").hasAuthority("Atendente")
-//                .requestMatchers(HttpMethod.POST, "/animal", "/cliente", "/agenda").hasAuthority("Atendente")
-//                .requestMatchers(HttpMethod.PUT, "/animal", "/cliente", "/agenda").hasAuthority("Atendente")
-//                .requestMatchers(HttpMethod.DELETE, "/animal", "/cliente", "/agenda").hasAuthority("Atendente")
-//
-//                //Veterinario
-//                .requestMatchers(HttpMethod.GET, "/prontuario,", "/servico/**", "/veterinario",
-//                        "/atendente", "/animal", "/cliente", "/agenda").hasAuthority("Veterinario")
-//                .requestMatchers(HttpMethod.POST, "/prontuario,", "/servico", "/veterinario", "/atendente").hasAuthority("Veterinario")
-//                .requestMatchers(HttpMethod.PUT, "/prontuario,", "/servico", "/veterinario", "/atendente",
-//                        "/animal", "/cliente", "/agenda").hasAuthority("Veterinario")
-//                .requestMatchers(HttpMethod.DELETE, "/prontuario,", "/servico", "/veterinario", "/atendente",
-//                        "/animal", "/cliente", "/agenda").hasAuthority("Veterinario")
-//
-//                //Cliente
-//                .requestMatchers(HttpMethod.GET, "/prontuario,", "/servico", "/veterinario", "/cliente", "/agenda").hasAuthority("Cliente")
-//
-//                .requestMatchers(HttpMethod.GET, "/servico", "/veterinario").hasAnyAuthority("Veterinario", "Cliente", "Atendente")
-//                .anyRequest().authenticated();
-
                 //ROTAS LIVRES
-                .requestMatchers(HttpMethod.GET, "/servico", "/servico/**", "/api/veterinario").permitAll()
+                .requestMatchers(HttpMethod.GET, "/servico", "/servico/**", "/veterinario").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/login", "/login").permitAll()
 
                 //ANIMAIS

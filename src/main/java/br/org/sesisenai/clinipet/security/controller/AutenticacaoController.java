@@ -52,7 +52,7 @@ public class AutenticacaoController {
 
                 System.out.println("retorno: " + ResponseEntity.ok().build());
 
-                return ResponseEntity.ok().build();
+                return ResponseEntity.ok().body(user);
             }
         } catch (Exception e) {
             System.out.println(e);

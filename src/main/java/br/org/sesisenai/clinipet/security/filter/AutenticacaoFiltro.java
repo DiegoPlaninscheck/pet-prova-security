@@ -39,12 +39,6 @@ public class AutenticacaoFiltro extends OncePerRequestFilter {
 
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
-//            PessoaJpa pessoa = cookieUtils.getUserCookie(request);
-
-//            System.out.println(pessoa);
-
-//            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(pessoa.getUsername(),
-//                            pessoa.getPassword(), pessoa.getAuthorities());
 
 //            Cookie jwtCookie = cookieUtils.renovarCookie(request, "token");
 //            response.addCookie(jwtCookie);
