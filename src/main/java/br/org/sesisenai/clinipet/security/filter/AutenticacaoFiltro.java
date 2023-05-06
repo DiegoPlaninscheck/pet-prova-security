@@ -26,6 +26,7 @@ public class AutenticacaoFiltro extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        System.out.println(request.getRequestURI());
         try {
             String token = cookieUtils.getTokenCookie(request);
             System.out.println("token: " + token);
@@ -33,6 +34,8 @@ public class AutenticacaoFiltro extends OncePerRequestFilter {
 
             if(valido){
                 UserDetails pessoa = jpaService.loadUserByUsername(jwtUtils.getPessoa(token));
+
+                System.out.println(pessoa);
 
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                         new UsernamePasswordAuthenticationToken(pessoa.getUsername(), null, pessoa.getAuthorities());
