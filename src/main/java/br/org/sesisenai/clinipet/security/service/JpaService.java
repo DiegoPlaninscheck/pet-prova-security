@@ -23,6 +23,8 @@ public class JpaService implements UserDetailsService {
 
         Optional<Pessoa> pessoa = pessoaRepository.findPessoaByEmail(username);
 
+        System.out.println("Pessoa pega da repository: " + pessoa.toString());
+
         if(pessoa.isPresent()){
             System.out.println("Pessoa is present");
             return new PessoaJpa(pessoa.get());

@@ -53,7 +53,7 @@ public class BancoUtils {
 
         Cliente cliente = new Cliente();
         cliente.setNome("Cliente");
-        cliente.setEmail("cliente@gmail.com");
+        cliente.setEmail("cliente@clinipet.com");
         cliente.setSenha("clinipet");
         cliente.setTelefone("99999-9999");
         cliente = clienteRepository.save(cliente);

@@ -37,25 +37,26 @@ public class AutenticacaoConfig {
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         System.out.println("httpSecurity: " + httpSecurity);
-        httpSecurity.authorizeRequests().requestMatchers("/login/**", "/login/auth/**", "/logout/**").permitAll()
+        httpSecurity.authorizeRequests().requestMatchers("/login/**", "/login/auth/**", "/logout/**", "/logout").permitAll()
 
                 //ROTAS LIVRES
                 .requestMatchers(HttpMethod.GET, "/servico", "/servico/**", "/veterinario").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/login", "/login").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/login", "/login", "/logout").permitAll()
 
                 //ANIMAIS
                 .requestMatchers(HttpMethod.GET, "/animal/**").hasAnyAuthority("ATENDENTE", "VETERINARIO")
                 .requestMatchers(HttpMethod.POST, "/animal").hasAuthority("ATENDENTE")
-                .requestMatchers(HttpMethod.PUT, "/animal").hasAnyAuthority("ATENDENTE", "VETERINARIO")
+                .requestMatchers(HttpMethod.PUT, "/animal/**").hasAnyAuthority("ATENDENTE", "VETERINARIO")
                 .requestMatchers(HttpMethod.DELETE, "/animal").hasAnyAuthority("ATENDENTE", "VETERINARIO")
 
                 //CLIENTES
-                .requestMatchers(HttpMethod.GET, "/cliente/**").hasAnyAuthority("ATENDENTE", "VETERINARIO")
+                .requestMatchers(HttpMethod.GET, "/cliente/**", "/cliente").hasAnyAuthority("ATENDENTE", "VETERINARIO")
                 .requestMatchers(HttpMethod.POST, "/cliente").hasAuthority("ATENDENTE")
-                .requestMatchers(HttpMethod.PUT, "/cliente").hasAnyAuthority("ATENDENTE", "VETERINARIO")
+                .requestMatchers(HttpMethod.PUT, "/cliente/**", "/cliente").hasAnyAuthority("ATENDENTE", "VETERINARIO")
                 .requestMatchers(HttpMethod.DELETE, "/cliente").hasAnyAuthority("ATENDENTE", "VETERINARIO")
 
                 //AGENDAS
+                .requestMatchers(HttpMethod.GET, "/agenda", "/agenda/**").hasAnyAuthority("ATENDENTE", "VETERINARIO")
                 .requestMatchers(HttpMethod.POST, "/agenda").hasAuthority("ATENDENTE")
                 .requestMatchers(HttpMethod.PUT, "/agenda").hasAnyAuthority("ATENDENTE", "VETERINARIO")
                 .requestMatchers(HttpMethod.DELETE, "/agenda").hasAnyAuthority("ATENDENTE", "VETERINARIO")
@@ -78,7 +79,7 @@ public class AutenticacaoConfig {
 
                 //VETERINARIOS
                 .requestMatchers(HttpMethod.POST, "/veterinario").hasAuthority("VETERINARIO")
-                .requestMatchers(HttpMethod.PUT, "/veterinario").hasAuthority("VETERINARIO")
+                .requestMatchers(HttpMethod.PUT, "/veterinario", "/veterinario/**").hasAuthority("VETERINARIO")
                 .requestMatchers(HttpMethod.DELETE, "/veterinario").hasAuthority("VETERINARIO")
 
                 .anyRequest().authenticated();
@@ -87,7 +88,7 @@ public class AutenticacaoConfig {
 
         httpSecurity.cors().configurationSource(corsConfiguration());
 
-        httpSecurity.logout().deleteCookies("token", "user").permitAll();
+        httpSecurity.logout().logoutUrl("/logout").deleteCookies("token", "user").permitAll();
 
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

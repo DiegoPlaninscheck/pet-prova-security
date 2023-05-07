@@ -18,6 +18,7 @@ public class ClienteController implements InterfaceController<Long, ClienteDTO> 
     }
     @Override
     public ResponseEntity<?> atualizar(Long id, ClienteDTO clienteDTO) {
+        System.out.println("Id do cliente: " + id);
         return ResponseEntity.ok(clienteService.atualizar(id, clienteDTO));
     }
     @Override

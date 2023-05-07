@@ -8,7 +8,7 @@ public interface InterfaceController<ID, DTO> {
     ResponseEntity<?> salvar(@RequestBody DTO dto);
 
     @PutMapping("/{id}")
-    ResponseEntity<?> atualizar(@PathVariable(name = "id") ID id,@RequestBody DTO dto);
+    ResponseEntity<?> atualizar(@PathVariable(name = "id") ID id, @RequestBody DTO dto);
 
     @GetMapping("/{id}")
     ResponseEntity<?> buscarPorId(@PathVariable(name = "id") ID id);
