@@ -4,9 +4,9 @@ import org.springframework.security.core.GrantedAuthority;
 
 public enum Perfil implements GrantedAuthority {
 
-    VETERINARIO("Veterinario"),
-    ATENDENTE("Atendente"),
-    CLIENTE("Cliente");
+    VETERINARIO("VETERINARIO"),
+    ATENDENTE("ATENDENTE"),
+    CLIENTE("CLIENTE");
 
     private String descricao;
 
@@ -25,7 +25,7 @@ public enum Perfil implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        return this.name();
+        return this.descricao;
     }
 
 }

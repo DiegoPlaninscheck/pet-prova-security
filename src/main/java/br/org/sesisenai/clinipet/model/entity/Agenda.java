@@ -1,6 +1,7 @@
 package br.org.sesisenai.clinipet.model.entity;
 
 import br.org.sesisenai.clinipet.model.enums.StatusAgenda;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -36,6 +37,7 @@ public class Agenda {
     private StatusAgenda status;
 
     @OneToOne(mappedBy = "agenda")
+    @JsonIgnore
     private Prontuario prontuario;
 
 }

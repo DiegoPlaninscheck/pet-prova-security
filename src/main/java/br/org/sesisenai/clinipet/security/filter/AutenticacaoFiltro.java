@@ -62,7 +62,8 @@ public class AutenticacaoFiltro extends OncePerRequestFilter {
 
     private void validarUrl(String url) throws Exception {
         System.out.println(url);
-        if (!(url.equals("/api/login/auth") || url.equals("/api/login") || url.equals("/api/logout"))) {
+        if (!(url.equals("/api/login/auth") || url.equals("/api/login") || url.equals("/api/logout")
+                || url.equals("/logout"))) {
             throw new RuntimeException();
         }
     }
