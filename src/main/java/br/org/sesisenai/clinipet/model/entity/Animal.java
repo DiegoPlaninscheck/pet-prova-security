@@ -14,7 +14,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @Entity
 public class Animal {
     @Id

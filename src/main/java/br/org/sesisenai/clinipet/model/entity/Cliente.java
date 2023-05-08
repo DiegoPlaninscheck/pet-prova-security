@@ -1,5 +1,6 @@
 package br.org.sesisenai.clinipet.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.*;
@@ -10,9 +11,9 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @Entity
 public class Cliente extends Pessoa {
     @OneToMany(mappedBy = "dono")
+    @JsonIgnore
     private List<Animal> animais;
 }

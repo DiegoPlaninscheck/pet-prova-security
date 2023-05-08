@@ -50,32 +50,32 @@ public class AutenticacaoConfig {
                 .requestMatchers(HttpMethod.DELETE, "/animal").hasAnyAuthority("ATENDENTE", "VETERINARIO")
 
                 //CLIENTES
-                .requestMatchers(HttpMethod.GET, "/cliente/**", "/cliente").hasAnyAuthority("ATENDENTE", "VETERINARIO")
+//                .requestMatchers(HttpMethod.GET, "/cliente/**", "/cliente").hasAnyAuthority("ATENDENTE", "VETERINARIO", "CLIENTE")
                 .requestMatchers(HttpMethod.POST, "/cliente").hasAuthority("ATENDENTE")
                 .requestMatchers(HttpMethod.PUT, "/cliente/**", "/cliente").hasAnyAuthority("ATENDENTE", "VETERINARIO")
                 .requestMatchers(HttpMethod.DELETE, "/cliente", "/cliente/**").hasAnyAuthority("ATENDENTE", "VETERINARIO")
 
                 //AGENDAS
-                .requestMatchers(HttpMethod.GET, "/agenda", "/agenda/**").hasAnyAuthority("ATENDENTE", "VETERINARIO")
+//                .requestMatchers(HttpMethod.GET, "/agenda", "/agenda/**").hasAnyAuthority("ATENDENTE", "VETERINARIO")
                 .requestMatchers(HttpMethod.POST, "/agenda").hasAuthority("ATENDENTE")
-                .requestMatchers(HttpMethod.PUT, "/agenda").hasAnyAuthority("ATENDENTE", "VETERINARIO")
-                .requestMatchers(HttpMethod.DELETE, "/agenda").hasAnyAuthority("ATENDENTE", "VETERINARIO")
+                .requestMatchers(HttpMethod.PUT, "/agenda/**").hasAnyAuthority("ATENDENTE", "VETERINARIO")
+                .requestMatchers(HttpMethod.DELETE, "/agenda/**").hasAnyAuthority("ATENDENTE", "VETERINARIO")
 
                 //ATENDENTES
                 .requestMatchers(HttpMethod.GET, "/atendente", "/atendente/**").hasAnyAuthority("ATENDENTE", "VETERINARIO")
                 .requestMatchers(HttpMethod.POST, "/atendente").hasAuthority("VETERINARIO")
-                .requestMatchers(HttpMethod.PUT, "/atendente").hasAuthority("VETERINARIO")
-                .requestMatchers(HttpMethod.DELETE, "/atendente").hasAuthority("VETERINARIO")
+                .requestMatchers(HttpMethod.PUT, "/atendente/**").hasAuthority("VETERINARIO")
+                .requestMatchers(HttpMethod.DELETE, "/atendente/**").hasAuthority("VETERINARIO")
 
                 //PRONTUARIOS
-                .requestMatchers(HttpMethod.POST, "/pontuario").hasAnyAuthority("VETERINARIO")
-                .requestMatchers(HttpMethod.PUT, "/pontuario").hasAnyAuthority("VETERINARIO")
-                .requestMatchers(HttpMethod.DELETE, "/pontuario").hasAnyAuthority("VETERINARIO")
+                .requestMatchers(HttpMethod.POST, "/prontuario").hasAnyAuthority("VETERINARIO")
+                .requestMatchers(HttpMethod.PUT, "/prontuario/**").hasAnyAuthority("VETERINARIO")
+                .requestMatchers(HttpMethod.DELETE, "/prontuario/**").hasAnyAuthority("VETERINARIO")
 
                 //SERVICOS
                 .requestMatchers(HttpMethod.POST, "/servico").hasAuthority("VETERINARIO")
-                .requestMatchers(HttpMethod.PUT, "/servico").hasAuthority("VETERINARIO")
-                .requestMatchers(HttpMethod.DELETE, "/servico").hasAuthority("VETERINARIO")
+                .requestMatchers(HttpMethod.PUT, "/servico/**").hasAuthority("VETERINARIO")
+                .requestMatchers(HttpMethod.DELETE, "/servico/**").hasAuthority("VETERINARIO")
 
                 //VETERINARIOS
                 .requestMatchers(HttpMethod.POST, "/veterinario").hasAuthority("VETERINARIO")
