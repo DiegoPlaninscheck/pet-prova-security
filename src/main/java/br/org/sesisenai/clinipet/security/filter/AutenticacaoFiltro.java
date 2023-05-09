@@ -46,8 +46,8 @@ public class AutenticacaoFiltro extends OncePerRequestFilter {
 
             Cookie jwtCookie = cookieUtils.renovarCookie(request, "token");
             response.addCookie(jwtCookie);
-            Cookie userCookie = cookieUtils.renovarCookie(request, "user");
-            response.addCookie(userCookie);
+//            Cookie userCookie = cookieUtils.renovarCookie(request, "user");
+//            response.addCookie(userCookie);
         }catch (Exception e) {
             e.printStackTrace();
             try {
