@@ -31,7 +31,20 @@ public class AutenticacaoConfig {
     @Autowired
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder.userDetailsService(jpaService).passwordEncoder(new BCryptPasswordEncoder());
-//        authenticationManagerBuilder.userDetailsService(jpaService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfiguration() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowedOrigins(List.of("http://localhost:8081"));
+        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.setAllowedHeaders(List.of("*"));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration);
+
+        return source;
     }
 
     @Bean
@@ -40,44 +53,42 @@ public class AutenticacaoConfig {
         httpSecurity.authorizeRequests().requestMatchers("/login/**", "/login/auth/**", "/logout/**", "/logout").permitAll()
 
                 //ROTAS LIVRES
-                .requestMatchers(HttpMethod.GET, "/servico", "/servico/**", "/veterinario").permitAll()
+                .requestMatchers(HttpMethod.GET, "/servico", "/servico/**", "/veterinario", "/veterinario/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/login", "/login", "/api/logout", "/logout").permitAll()
 
-                //ANIMAIS
+                //ROTAS ANIMAIS
                 .requestMatchers(HttpMethod.GET, "/animal/**").hasAnyAuthority("ATENDENTE", "VETERINARIO")
                 .requestMatchers(HttpMethod.POST, "/animal").hasAuthority("ATENDENTE")
                 .requestMatchers(HttpMethod.PUT, "/animal", "/animal/**").hasAnyAuthority("ATENDENTE", "VETERINARIO")
                 .requestMatchers(HttpMethod.DELETE, "/animal").hasAnyAuthority("ATENDENTE", "VETERINARIO")
 
-                //CLIENTES
-//                .requestMatchers(HttpMethod.GET, "/cliente/**", "/cliente").hasAnyAuthority("ATENDENTE", "VETERINARIO", "CLIENTE")
+                //ROTAS CLIENTES
                 .requestMatchers(HttpMethod.POST, "/cliente").hasAuthority("ATENDENTE")
                 .requestMatchers(HttpMethod.PUT, "/cliente/**", "/cliente").hasAnyAuthority("ATENDENTE", "VETERINARIO")
                 .requestMatchers(HttpMethod.DELETE, "/cliente", "/cliente/**").hasAnyAuthority("ATENDENTE", "VETERINARIO")
 
-                //AGENDAS
-//                .requestMatchers(HttpMethod.GET, "/agenda", "/agenda/**").hasAnyAuthority("ATENDENTE", "VETERINARIO")
+                //ROTAS AGENDAS
                 .requestMatchers(HttpMethod.POST, "/agenda").hasAuthority("ATENDENTE")
                 .requestMatchers(HttpMethod.PUT, "/agenda/**").hasAnyAuthority("ATENDENTE", "VETERINARIO")
                 .requestMatchers(HttpMethod.DELETE, "/agenda/**").hasAnyAuthority("ATENDENTE", "VETERINARIO")
 
-                //ATENDENTES
+                //ROTAS ATENDENTES
                 .requestMatchers(HttpMethod.GET, "/atendente", "/atendente/**").hasAnyAuthority("ATENDENTE", "VETERINARIO")
                 .requestMatchers(HttpMethod.POST, "/atendente").hasAuthority("VETERINARIO")
                 .requestMatchers(HttpMethod.PUT, "/atendente/**").hasAuthority("VETERINARIO")
                 .requestMatchers(HttpMethod.DELETE, "/atendente/**").hasAuthority("VETERINARIO")
 
-                //PRONTUARIOS
+                //ROTAS PRONTUARIOS
                 .requestMatchers(HttpMethod.POST, "/prontuario").hasAnyAuthority("VETERINARIO")
                 .requestMatchers(HttpMethod.PUT, "/prontuario/**").hasAnyAuthority("VETERINARIO")
                 .requestMatchers(HttpMethod.DELETE, "/prontuario/**").hasAnyAuthority("VETERINARIO")
 
-                //SERVICOS
+                //ROTAS SERVICOS
                 .requestMatchers(HttpMethod.POST, "/servico").hasAuthority("VETERINARIO")
                 .requestMatchers(HttpMethod.PUT, "/servico/**").hasAuthority("VETERINARIO")
                 .requestMatchers(HttpMethod.DELETE, "/servico/**").hasAuthority("VETERINARIO")
 
-                //VETERINARIOS
+                //ROTAS VETERINARIOS
                 .requestMatchers(HttpMethod.POST, "/veterinario").hasAuthority("VETERINARIO")
                 .requestMatchers(HttpMethod.PUT, "/veterinario", "/veterinario/**").hasAuthority("VETERINARIO")
                 .requestMatchers(HttpMethod.DELETE, "/veterinario", "/veterinario/**").hasAuthority("VETERINARIO")
@@ -95,20 +106,6 @@ public class AutenticacaoConfig {
         httpSecurity.addFilterBefore(new AutenticacaoFiltro(new JwtUtils(), new CookieUtils(), jpaService), UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
-    }
-
-    @Bean
-    CorsConfigurationSource corsConfiguration() {
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowedOrigins(List.of("http://localhost:8081"));
-        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
-        corsConfiguration.setAllowCredentials(true);
-        corsConfiguration.setAllowedHeaders(List.of("*"));
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", corsConfiguration);
-
-        return source;
     }
 
     @Bean

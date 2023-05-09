@@ -31,7 +31,7 @@ public class AnimalController implements InterfaceController<Long, AnimalDTO> {
     @Override
     public ResponseEntity<?> excluirPorId(Long id) {
         animalService.excluirPorId(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body("Deletado com sucesso!");
     }
 
     @Override

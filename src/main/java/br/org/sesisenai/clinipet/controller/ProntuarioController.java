@@ -27,7 +27,7 @@ public class ProntuarioController implements InterfaceController<Long, Prontuari
     @Override
     public ResponseEntity<?> excluirPorId(Long id) {
         prontuarioService.excluirPorId(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body("Deletado com sucesso!");
     }
     @Override
     public ResponseEntity<?> buscarTodos() {

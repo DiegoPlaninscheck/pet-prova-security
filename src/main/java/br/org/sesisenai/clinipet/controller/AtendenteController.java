@@ -27,7 +27,7 @@ public class AtendenteController implements InterfaceController<Long, AtendenteD
     @Override
     public ResponseEntity<?> excluirPorId(Long id) {
         atendenteService.excluirPorId(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body("Deletado com sucesso!");
     }
     @Override
     public ResponseEntity<?> buscarTodos() {

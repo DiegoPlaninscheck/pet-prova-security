@@ -27,7 +27,7 @@ public class ServicoController implements InterfaceController<Long, ServicoDTO>{
     @Override
     public ResponseEntity<?> excluirPorId(Long id) {
         servicoService.excluirPorId(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body("Deletado com sucesso!");
     }
     @Override
     public ResponseEntity<?> buscarTodos() {

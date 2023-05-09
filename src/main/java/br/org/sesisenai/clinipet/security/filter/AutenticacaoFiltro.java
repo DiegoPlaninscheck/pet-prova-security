@@ -5,6 +5,7 @@ import br.org.sesisenai.clinipet.security.utils.CookieUtils;
 import br.org.sesisenai.clinipet.security.utils.JwtUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
@@ -43,10 +44,10 @@ public class AutenticacaoFiltro extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
 
-//            Cookie jwtCookie = cookieUtils.renovarCookie(request, "token");
-//            response.addCookie(jwtCookie);
-//            Cookie userCookie = cookieUtils.renovarCookie(request, "user");
-//            response.addCookie(userCookie);
+            Cookie jwtCookie = cookieUtils.renovarCookie(request, "token");
+            response.addCookie(jwtCookie);
+            Cookie userCookie = cookieUtils.renovarCookie(request, "user");
+            response.addCookie(userCookie);
         }catch (Exception e) {
             e.printStackTrace();
             try {

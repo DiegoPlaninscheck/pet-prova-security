@@ -27,7 +27,7 @@ public class AgendaController implements InterfaceController<Long, AgendaDTO>{
     @Override
     public ResponseEntity<?> excluirPorId(Long id) {
         agendaService.excluirPorId(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body("Deletado com sucesso!");
     }
     @Override
     public ResponseEntity<?> buscarTodos() {

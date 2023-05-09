@@ -27,7 +27,7 @@ public class VeterinarioController implements InterfaceController<Long, Veterina
     @Override
     public ResponseEntity<?> excluirPorId(Long id) {
         veterinarioService.excluirPorId(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body("Deletado com sucesso!");
     }
     @Override
     public ResponseEntity<?> buscarTodos() {
